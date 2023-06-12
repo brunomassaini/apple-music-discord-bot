@@ -5,8 +5,9 @@ import os
 
 client_id = os.getenv('DISCORD_CLIENT_ID')
 apple_music_logo = "https://apple-resources.s3.amazonaws.com/medusa/production/images/5f600674c4f022000191d6c4/en-us-large@1x.png"
+
 RPC = pypresence.Presence(client_id,pipe=0)  # Initialize the client class
-RPC.connect() # Start the handshake loop
+rpc_connected = False
 
 def get_current_track():
     command = """
@@ -72,6 +73,8 @@ while True:  # The presence will stay on as long as the program is running
 
     if current_track != None:
         RPC.connect() # Start the handshake loop
+        rpc_connected = True
+
         current_time = int(time.time())
 
         print(get_current_track())
@@ -93,6 +96,8 @@ while True:  # The presence will stay on as long as the program is running
             end=music_ends))  # Set the presence
     else:
         print("No music playing.")
-        RPC.close()
+        if rpc_connected == True:
+            RPC.close()
+            rpc_connected = False
     
     time.sleep(15) # Can only update rich presence every 15 seconds
