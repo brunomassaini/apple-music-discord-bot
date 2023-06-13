@@ -70,15 +70,16 @@ def retrieve_album_cover(song_name, artist_name):
 
 while True:  # The presence will stay on as long as the program is running
     current_track = get_current_track()
+    print(rpc_connected)
+    print(current_track)
 
     if current_track != None:
-        RPC.connect() # Start the handshake loop
+        if rpc_connected == False:
+            RPC.connect() # Start the handshake loop
+
         rpc_connected = True
 
         current_time = int(time.time())
-
-        print(get_current_track())
-
         album_cover_url = retrieve_album_cover(current_track["track"], current_track["artist"])
 
         duration_integer = int(current_track["duration"].split(",")[0])
