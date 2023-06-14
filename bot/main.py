@@ -86,8 +86,6 @@ while True:  # The presence will stay on as long as the program is running
         if album_cover_url == None:
             album_cover_url = bot_logo
 
-        print(album_cover_url)
-
         duration_integer = int(current_track["duration"].split(",")[0])
         position_integer = int(current_track["position"].split(",")[0])
 
