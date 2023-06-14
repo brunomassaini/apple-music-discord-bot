@@ -5,6 +5,7 @@ import os
 
 client_id = os.getenv('DISCORD_CLIENT_ID')
 apple_music_logo = "https://apple-resources.s3.amazonaws.com/medusa/production/images/5f600674c4f022000191d6c4/en-us-large@1x.png"
+bot_logo = "https://dl-fra-musiquinho-public-files.s3.eu-central-1.amazonaws.com/generic_album_cover.jpg"
 
 RPC = pypresence.Presence(client_id,pipe=0)  # Initialize the client class
 rpc_connected = False
@@ -81,6 +82,11 @@ while True:  # The presence will stay on as long as the program is running
 
         current_time = int(time.time())
         album_cover_url = retrieve_album_cover(current_track["track"], current_track["artist"])
+
+        if album_cover_url == None:
+            album_cover_url = bot_logo
+
+        print(album_cover_url)
 
         duration_integer = int(current_track["duration"].split(",")[0])
         position_integer = int(current_track["position"].split(",")[0])
